@@ -1,0 +1,7 @@
+{
+  "name": "C_Asistencia",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}
