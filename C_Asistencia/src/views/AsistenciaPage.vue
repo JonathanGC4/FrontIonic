@@ -15,7 +15,7 @@
         </ion-row>
         
         <ion-row v-for="usuario in key" :key="usuario.">
-          <ion-col>{{ usuario }}</ion-col>
+          <ion-col>{{ usuario. }}</ion-col>
           <ion-col>{{ usuario. }}</ion-col>
           <ion-col>{{ usuario.}}</ion-col>
         </ion-row>

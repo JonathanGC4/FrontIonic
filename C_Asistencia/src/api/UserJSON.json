@@ -1,4 +1,5 @@
 {
-    "username": "",
-    "password": ""
+    "id_empleado": 0,
+    "nombre_usuario": "",
+    "contrasena": ""
 }

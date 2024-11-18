@@ -1,10 +1,8 @@
 export default interface Usuarios{
-    id: number;
-    nombre: string;
+    id_empleado: number;
+    nombre_usuario: string | undefined;
     contrasena: string;
-    correo: string;
-    rol: number;
-    fecha: string | number | undefined;
+    Ncontrasena: string;
     created_at: string;
     updated_at: string;
 }
