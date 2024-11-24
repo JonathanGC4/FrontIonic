@@ -1,11 +1,12 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
-import LoginPage from '@/views/LoginPage.vue';
-import BienvenidoPage from '@/views/BienvenidoPage.vue';
-import HomePage from '../views/HomePage.vue';
+import LoginPage from '../views/LoginPage.vue';
+import BienvenidoPage from '../views/BienvenidoPage.vue';
+import HomePage from '../views/RecuperacionPassword.vue';
 import RegistroArea from '../views/Administrador/RegistroAreas.vue'; 
 import AdministradorView from '../views/Administrador/AdministradorView.vue';
 import GestionEmpleados from '@/views/Administrador/GestionEmpleados.vue';
+import SalarioPage from '@/views/SalarioPage.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -39,6 +40,10 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/gestion-empleados',
     component: GestionEmpleados 
+  },
+  {
+    path: '/salario',
+    component: SalarioPage
   }
 ];
 

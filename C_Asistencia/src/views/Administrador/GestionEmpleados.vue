@@ -13,35 +13,35 @@
           <!-- Formulario  -->
           <form @submit.prevent="guardarEmpleado">
               <ion-item>
-                  <ion-label position="floating">Nombre</ion-label>
-                  <ion-input v-model="empleado.nombre" type="text" required></ion-input>
+                  <ion-label position="floating">Nombre</ion-label><br>
+                  <br><ion-input v-model="empleado.nombre" type="text" required></ion-input>
               </ion-item>
               <ion-item>
-                  <ion-label position="floating">Apellido</ion-label>
-                  <ion-input v-model="empleado.apellido" type="text" required></ion-input>
+                  <ion-label position="floating">Apellido</ion-label><br>
+                  <br><ion-input v-model="empleado.apellido" type="text" required></ion-input>
               </ion-item>
               <ion-item>
-                  <ion-label position="floating">Cargo</ion-label>
-                  <ion-input v-model="empleado.cargo" type="text" required></ion-input>
+                <br><ion-label position="floating">Cargo</ion-label>
+                <br> <ion-input v-model="empleado.cargo" type="text" required></ion-input>
               </ion-item>
               <ion-item>
-                  <ion-label position="floating">Área ID</ion-label>
-                  <ion-input v-model.number="empleado.id_area" type="number" required></ion-input>
+                <br><ion-label position="floating">Área ID</ion-label>
+                <br> <ion-input v-model.number="empleado.id_area" type="number" required></ion-input>
               </ion-item>
               <ion-item>
-                  <ion-label position="floating">Puesto</ion-label>
-                  <ion-input v-model="empleado.puesto" type="text" required></ion-input>
+                <br> <ion-label position="floating">Puesto</ion-label>
+                <br> <ion-input v-model="empleado.puesto" type="text" required></ion-input>
               </ion-item>
               <ion-item>
-                  <ion-label position="floating">Correo</ion-label>
-                  <ion-input v-model="empleado.correo" type="email" required></ion-input>
+                <br><ion-label position="floating">Correo</ion-label>
+                <br><ion-input v-model="empleado.correo" type="email" required></ion-input>
               </ion-item>
               <ion-item>
-                  <ion-label position="floating">Teléfono</ion-label>
-                  <ion-input v-model="empleado.telefono" type="tel" required></ion-input>
+                <br><ion-label position="floating">Teléfono</ion-label>
+                <br><ion-input v-model="empleado.telefono" type="tel" required></ion-input>
               </ion-item>
 
-              <ion-button expand="full" type="submit">{{ isEditing ? 'Actualizar' : 'Agregar' }} Empleado</ion-button>
+              <br><ion-button expand="full" type="submit">{{ isEditing ? 'Actualizar' : 'Agregar' }} Empleado</ion-button>
           </form>
 
           <!-- Lista de empleados -->

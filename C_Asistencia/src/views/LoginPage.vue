@@ -2,90 +2,99 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-title>
-          Control Asistencia
-        </ion-title>
+        <ion-title>Inicio de Sesión</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content>
-      <ion-grid>
-        <ion-row class="ion-justify-content-center ion-align-items-center align-text-center" :fullscreen="true">
-          <ion-col size="12">
-            <img src="../asistencia.webp" alt="" height="200px">
-            <ion-item>
-            </ion-item>
-            <ion-item>
-              <ion-label position="stacked">Usuario</ion-label>
-              <ion-input v-model="nombre_usuario" type="text" placeholder="Digite su usuario"></ion-input>
-            </ion-item>
-
-            <ion-item>
-              <ion-label position="stacked">Contraseña</ion-label>
-              <ion-input v-model="contrasena" type="password" placeholder="Digite su contraseña"></ion-input>
-            </ion-item>
-
-            <ion-button expand="full" @click="login" color="tertiary">Iniciar sesión</ion-button>
-
-            <ion-col size="8">
-              <ion-button fill="clear" @click="nuevo">Olvidó su contraseña</ion-button>
-            </ion-col>
-          </ion-col>
-        </ion-row>
-
-      </ion-grid>
-      <ion-toast :is-open="isOpen" :message="msgError" :duration="5000" @didDismiss="hideToast"></ion-toast>
+      <ion-item>
+        <ion-label position="floating">Usuario</ion-label>
+        <ion-input v-model="username" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input v-model="password" type="password"></ion-input>
+      </ion-item>
+      <ion-button expand="full" @click="login">Iniciar Sesión</ion-button>
+      <ion-toast
+        :is-open="toastOpen"
+        :message="toastMessage"
+        :duration="2000"
+        @didDismiss="toastOpen = false"
+      ></ion-toast>
     </ion-content>
   </ion-page>
 </template>
 
-<script setup lang="ts">
-import { IonToast, IonButton, IonItem, IonInput, IonGrid, IonRow, IonCol, IonHeader, IonTitle, IonContent, IonToolbar, IonLabel, IonPage } from '@ionic/vue'; 
-import { ref } from 'vue';
-import User from '@/interfaces/User';
-import { useRouter } from 'vue-router';
+<script>
+import {
+  IonPage,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonItem,
+  IonLabel,
+  IonInput,
+  IonButton,
+  IonToast,
+} from "@ionic/vue";
+import { ref } from "vue";
+import axios from "axios";
+import { useRouter } from "vue-router";
 
-const nombre_usuario = ref<string>('');
-const contrasena = ref<string>('');
-const msgError = ref<string>('');
-const isOpen = ref<boolean>(false);
+export default {
+  name: "Login",
+  components: {
+    IonPage,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonItem,
+    IonLabel,
+    IonInput,
+    IonButton,
+    IonToast,
+  },
+  setup() {
+    const username = ref(""); // Vínculo con el campo de usuario
+    const password = ref(""); // Vínculo con el campo de contraseña
+    const router = useRouter();
+    const toastOpen = ref(false);
+    const toastMessage = ref("");
 
-const usuario = ref<User>({
-  id_empleado: 0,
-  nombre_usuario: '',
-  contrasena: '',
-});
+    const login = async () => {
+      try {
+        // Llamada a la API con los valores de los campos
+        const response = await axios.post("http://127.0.0.1:8000/api/login", {
+          nombre_usuario: username.value, // Cambiado a 'nombre_usuario'
+          contrasena: password.value, // Usando el valor correcto de contrasena
+        });
 
-const router = useRouter();
+        // Guardar token en localStorage y redirigir
+        if (response.data.code === 200) {
+          localStorage.setItem("token", response.data.token);
+          toastMessage.value = "Inicio de sesión exitoso";
+          toastOpen.value = true;
+          router.push("/bienvenido");
+        } else {
+          throw new Error("Inicio de sesión fallido");
+        }
+      } catch (error) {
+        // Manejo de errores
+        toastMessage.value =
+          error.response?.data?.data || "Error al iniciar sesión";
+        toastOpen.value = true;
+      }
+    };
 
-function login() {
-  if (!nombre_usuario.value || !contrasena.value) {
-    showToast("Datos vacíos");
-  } else {
-    if (nombre_usuario.value && contrasena.value) {
-      router.push('/bienvenido/' + nombre_usuario.value);
-    } else {
-      showToast("Usuario o contraseña incorrectos");
-    }
-  }
-}
-
-function hideToast(): void {
-  isOpen.value = false;
-}
-
-function showToast(msg: string): void {
-  msgError.value = msg;
-  isOpen.value = true;
-}
-
-function nuevo() {
-  router.push('/home/' + nombre_usuario.value);
-}
+    return {
+      username,
+      password,
+      login,
+      toastOpen,
+      toastMessage,
+    };
+  },
+};
 </script>
-
-<style scoped>
-ion-button {
-  margin-top: 16px;
-  align-content: center;
-}
-</style>
